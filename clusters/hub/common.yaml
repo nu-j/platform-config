@@ -1,0 +1,41 @@
+#
+# common.yaml: Config common to all hub (management) clusters
+#
+
+clusterType: hub
+
+platform:
+  argocdApps:
+    # ACS is the primary security tooling on hub clusters
+    advancedClusterSecurity:
+      enabled: true
+
+    # Alertmanager config applies to all clusters including hub
+    alertmanagerConfig:
+      enabled: true
+
+    # ROSA MachinePools do not apply to hub clusters
+    rosaMachinePool:
+      enabled: false
+
+    clusterOpsSa:
+      enabled: true
+    clusterTasks:
+      enabled: true
+
+# Operators installed on hub clusters
+operators:
+  # ACM is already installed on the hub — managed outside this chart
+  advancedClusterManagementOperator:
+    enabled: false
+  certManagerOperator:
+    enabled: true
+  openshiftTempoOperator:
+    enabled: true
+  opentelemetryOperator:
+    enabled: true
+
+clusterTheme:
+  banner:
+    color: "#ffffff"
+    backgroundColor: "#8b0000"

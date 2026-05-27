@@ -1,0 +1,40 @@
+#
+# common.yaml: This is for config that is common among clusters of the dev type
+#
+
+clusterType: dev
+
+platform:
+  argocdApps:
+    rosaMachinePool:
+      enabled: true
+    cifsSmbCsiDriver:
+      enabled: true
+    clusterOpsSa:
+      enabled: true
+    clusterTasks:
+      enabled: true
+    kubecostConfig:
+      enabled: true
+    genericHelmchartPipeline:
+      enabled: false
+    grafanaCustomRoles:
+      enabled: false
+    tektonInfraContainersPipeline:
+      enabled: true
+
+# global operator config
+operators:
+  kubecostOperator:
+    enabled: true
+  openshiftTempoOperator:
+    enabled: true
+  opentelemetryOperator:
+    enabled: true
+  strimziClusterOperator:
+    enabled: true
+
+clusterTheme:
+  banner:
+    color: "#ffffff"
+    backgroundColor: "#28a745"

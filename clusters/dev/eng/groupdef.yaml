@@ -1,0 +1,100 @@
+#
+# groupdef.yaml: This is for config that is specific to a clusters grouping
+#                This one is for eng-dev group
+#
+
+clusterGroup: eng-dev
+team: eng
+# This is the AD group used for OCP Auth
+adGroupName: OPENSHIFT_GROUPS_OCP-DEV
+ldapAccount: svc_ocp_ad_nonprd
+
+platform:
+  argocd:
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - Validate=true
+        - CreateNamespace=false
+        - RespectIgnoreDifferences=true
+        - ServerSideApply=true
+
+  # Argo App(NU-J/Bootstrap) config
+  argocdApps:
+
+    appdynamicsConfig:
+      enabled: true
+      targetRevision: main
+      # This is here due to the appd operator version not being from stable
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - Validate=false
+          - CreateNamespace=true
+          - RespectIgnoreDifferences=true
+          - ServerSideApply=false
+
+    infraNodes:
+      # This has been replaced with a machineset
+      enabled: false
+
+    ingresApiCerts:
+      path: replace-ingress-api-certs
+      targetRevision: main
+
+    grafana:
+      targetRevision: main
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - Validate=true
+          - CreateNamespace=true
+          - RespectIgnoreDifferences=true
+          - ServerSideApply=false
+
+    grafanaCapacityView:
+      enabled: true
+
+    machineConfigs:
+      targetRevision: main
+
+    openshiftAuth:
+      targetRevision: main
+
+    openshiftImageRegistry:
+      targetRevision: main
+
+    tektonConfig:
+      targetRevision: main
+
+    openshiftPipelinesConfig:
+      enabled: true
+      path: openshift-pipelines-config
+      targetRevision: main
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+
+    tektonInfraContainersPipeline:
+      enabled: false
+
+    workerNodes:
+      # This has been replaced with a machineset
+      enabled: false
+
+# This override is for the global list from default.yaml
+operators:
+  openshiftGitopsOperator:
+    # This is set to false as it is installed via the hub cluster
+    enabled: false
+
+stackrox:
+  operator:
+  clusterName: eng-hub

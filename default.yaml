@@ -1,0 +1,168 @@
+#
+# default.yaml: Config that applies to all clusters and environments
+#
+
+platform:
+  # Default base domain for the platform
+  baseDomain: org.internal
+  # Overall platform release version (used as targetRevision for all apps + config)
+  version: main
+
+  # Global platform Argo CD config
+  argocd:
+    version: v1.20.3
+    consoleLink:
+      enabled: true
+    controller:
+      processors:
+        operation: 50
+        status: 25
+    instanceName: argocd
+    namespace: platform-tools
+    rbac:
+      defaultPolicy: role:readonly
+      policy: |
+        g, argocd-local-admins, role:admin
+    redis:
+      ha:
+        enabled: true
+    repo:
+      replicas: 3
+    # Global sync policy for all platform apps
+    # Autosync is commented out by default — enable per group/cluster in groupdef/clusterdef
+    syncPolicy:
+      #automated:
+      #  prune: true
+      #  selfHeal: true
+      syncOptions:
+        - Validate=true
+        - CreateNamespace=false
+        - RespectIgnoreDifferences=true
+        - ServerSideApply=true
+
+  # Catalog of platform Argo CD apps — enable/configure per layer
+  argocdApps:
+    advancedClusterSecurity:
+      enabled: false
+      path: stackrox
+      targetRevision: main
+      destination:
+        namespace: stackrox
+      values:
+        stackrox:
+          operator: null
+          namespace: stackrox
+          analyzer:
+            resources:
+              limits:
+                cpu: 500m
+              requests:
+                cpu: 100m
+
+    alertmanagerConfig:
+      enabled: true
+      repoURL: https://github.com/purple-monkey/platform-apps.git
+      path: alertmanager
+      targetRevision: main
+
+    rosaMachinePool:
+      enabled: false
+      repoURL: https://github.com/purple-monkey/helm-catalog.git
+      path: rosa-machine-pool
+      targetRevision: main
+      destination:
+        namespace: openshift-machine-api
+
+  # Default config for the operator installer app
+  operatorInstaller:
+    repoURL: https://github.com/redhat-cop/helm-charts.git
+    path: charts/operators-installer
+    targetRevision: main
+    approveManualInstallPlanViaHook: true
+    installPlanApproval: Manual
+
+# Global operator catalog — enable/override per layer
+operators:
+  advancedClusterManagementOperator:
+    enabled: false
+    name: advanced-cluster-management
+    appname: advanced-cluster-management-operator
+    destination:
+      namespace: open-cluster-management
+    createOperatorGroup: true
+    operatorGroupName: open-cluster-management
+    createNamespace: true
+    targetOwnNamespace: true
+    channel: release-2.14
+    csv: advanced-cluster-management.v2.14.0
+    source: redhat-operators
+
+  certManagerOperator:
+    enabled: true
+    name: openshift-cert-manager-operator
+    appname: cert-manager-operator
+    destination:
+      namespace: cert-manager-operator
+    createOperatorGroup: true
+    operatorGroupName: cert-manager-operator
+    createNamespace: true
+    targetOwnNamespace: true
+    channel: stable-v1
+    csv: cert-manager-operator.v1.14.1
+    source: redhat-operators
+
+  kubecostOperator:
+    enabled: false
+    name: kubecost-operator
+    appname: kubecost-operator
+    destination:
+      namespace: kubecost
+    createOperatorGroup: true
+    operatorGroupName: kubecost
+    createNamespace: true
+    targetOwnNamespace: true
+    channel: stable
+    csv: kubecost-operator.v0.0.0
+    source: community-operators
+
+  openshiftTempoOperator:
+    enabled: false
+    name: tempo-operator
+    appname: tempo-operator
+    destination:
+      namespace: openshift-tempo-operator
+    createOperatorGroup: true
+    operatorGroupName: openshift-tempo-operator
+    createNamespace: true
+    targetOwnNamespace: false
+    channel: stable
+    csv: tempo-operator.v0.0.0
+    source: redhat-operators
+
+  opentelemetryOperator:
+    enabled: false
+    name: opentelemetry-operator
+    appname: opentelemetry-operator
+    destination:
+      namespace: openshift-opentelemetry-operator
+    createOperatorGroup: true
+    operatorGroupName: openshift-opentelemetry-operator
+    createNamespace: true
+    targetOwnNamespace: false
+    channel: stable
+    csv: opentelemetry-operator.v0.0.0
+    source: redhat-operators
+
+  strimziClusterOperator:
+    enabled: false
+    name: strimzi-kafka-operator
+    appname: strimzi-cluster-operator
+    destination:
+      namespace: openshift-operators
+    createOperatorGroup: false
+    operatorGroupName: openshift-operators
+    createNamespace: false
+    targetOwnNamespace: false
+    channel: stable
+    csv: strimzi-cluster-operator.v0.0.0
+    source: community-operators

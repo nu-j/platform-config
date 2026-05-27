@@ -1,0 +1,14 @@
+#
+# clusterdef.yaml: Config specific to the eng hub cluster in eu-west-1
+#
+
+clusterName: acme-hub-eu-west-1
+region: eu-west-1
+
+# OCP version tracking (informational — upgrades managed via ROSA/ACM service)
+ocpInstalledVersion: 4.20.0
+ocpCurrentVersion: 4.20.0
+
+# ACS init bundle clusterName override if this cluster differs from the group default
+# stackrox:
+#   clusterName: acme-hub-eu-west-1
