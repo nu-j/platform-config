@@ -1,13 +1,13 @@
 #
-# clusterdef.yaml: Config specific to the arkham-dev-waterford ROSA cluster
+# clusterdef.yaml: Config specific to the arkham-dev-eu-west-1 ROSA cluster (payments group)
 #
 
-clusterName: arkham-dev-waterford
-region: waterford
+clusterName: arkham-dev-eu-west-1
+region: eu-west-1
 
 # OCP version tracking (informational — upgrades managed via ROSA service)
-ocpInstalledVersion: 4.18.34
-ocpCurrentVersion: 4.19.23
+# ocpInstalledVersion: 4.18.34
+# ocpCurrentVersion: 4.19.23
 
 # ROSA day-2 MachinePool — manages worker node pools via machine.openshift.io/v1beta1
 # Enable via platform.argocdApps.rosaMachinePool in groupdef/common

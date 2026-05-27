@@ -1,9 +1,9 @@
 #
 # groupdef.yaml: This is for config that is specific to a clusters grouping
-#                This one is for eng-dev group
+#                This one is for the eng group
 #
 
-clusterGroup: eng-dev
+clusterGroup: eng
 team: eng
 # This is the AD group used for OCP Auth
 adGroupName: OPENSHIFT_GROUPS_OCP-DEV
@@ -96,5 +96,4 @@ operators:
     enabled: false
 
 stackrox:
-  operator:
-  clusterName: eng-hub
+  clusterName: eng-dev

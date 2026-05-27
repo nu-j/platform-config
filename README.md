@@ -26,4 +26,4 @@ targetRevision: main
 2. Set `rosa.machinePools.platform.enabled: true` and `rosa.machinePools.platform.clusterID` in `clusterdef.yaml`.
 3. Push the change; spoke Argo CD picks it up on next sync — no `helm install` or `helm upgrade` needed.
 
-See [dev/eng-dev/kilkenny/clusterdef.yaml](dev/eng-dev/kilkenny/clusterdef.yaml) for a complete example.
+See [clusters/dev/eng/blue/clusterdef.yaml](clusters/dev/eng/blue/clusterdef.yaml) for a complete example.

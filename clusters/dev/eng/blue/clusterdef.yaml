@@ -1,9 +1,9 @@
 #
-# clusterdef.yaml: Config specific to the arkham-dev-kilkenny ROSA cluster
+# clusterdef.yaml: Config specific to the arkham-dev-blue ROSA cluster
 #
 
-clusterName: arkham-dev-kilkenny
-region: kilkenny
+clusterName: arkham-dev-blue
+region: blue
 
 # OCP version tracking (informational — upgrades managed via ROSA service)
 ocpInstalledVersion: 4.20.14
