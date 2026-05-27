@@ -61,13 +61,13 @@ platform:
 
     alertmanagerConfig:
       enabled: true
-      repoURL: https://github.com/purple-monkey/platform-apps.git
+      repoURL: https://github.com/nu-j/platform-apps.git
       path: alertmanager
       targetRevision: main
 
     rosaMachinePool:
       enabled: false
-      repoURL: https://github.com/purple-monkey/helm-catalog.git
+      repoURL: https://github.com/nu-j/helm-catalog.git
       path: rosa-machine-pool
       targetRevision: main
       destination:

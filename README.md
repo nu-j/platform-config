@@ -15,7 +15,7 @@ Layered YAML only — no Helm charts. Referenced by Argo CD as `$platform_values
 All charts from the `helm-catalog` repo use:
 
 ```yaml
-repoURL: https://github.com/purple-monkey/helm-catalog.git
+repoURL: https://github.com/nu-j/helm-catalog.git
 path: <chart-folder-name>   # no prefix — helm-catalog root IS the chart root
 targetRevision: main
 ```
