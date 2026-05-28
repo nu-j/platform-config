@@ -44,6 +44,7 @@ platform:
   argocdApps:
     advancedClusterSecurity:
       enabled: false
+      repoURL: https://github.com/nu-j/helm-catalog.git
       path: stackrox
       targetRevision: main
       destination:
