@@ -40,37 +40,19 @@ platform:
         - RespectIgnoreDifferences=true
         - ServerSideApply=true
 
-  # Catalog of platform Argo CD apps — enable/configure per layer
+  # Catalog of platform Argo CD apps — enable/configure per layer.
+  # repoURL/path/targetRevision are baked into each app template; override here only if needed.
   argocdApps:
     advancedClusterSecurity:
       enabled: false
-      repoURL: https://github.com/nu-j/helm-catalog.git
-      path: stackrox
-      targetRevision: main
       destination:
         namespace: stackrox
-      values:
-        stackrox:
-          operator: null
-          namespace: stackrox
-          analyzer:
-            resources:
-              limits:
-                cpu: 500m
-              requests:
-                cpu: 100m
 
     alertmanagerConfig:
       enabled: true
-      repoURL: https://github.com/nu-j/platform-apps.git
-      path: alertmanager
-      targetRevision: main
 
     rosaMachinePool:
       enabled: false
-      repoURL: https://github.com/nu-j/helm-catalog.git
-      path: rosa-machine-pool
-      targetRevision: main
       destination:
         namespace: openshift-machine-api
 

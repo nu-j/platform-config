@@ -9,6 +9,15 @@ platform:
     # ACS is the primary security tooling on hub clusters
     advancedClusterSecurity:
       enabled: true
+      values:
+        stackrox:
+          namespace: stackrox
+          analyzer:
+            resources:
+              limits:
+                cpu: 500m
+              requests:
+                cpu: 100m
 
     # Alertmanager config applies to all clusters including hub
     alertmanagerConfig:

@@ -1,0 +1,6 @@
+#
+# region.yaml: This is for config that is specific to a region
+#                This one is for Kilkenny region
+#
+
+ldapServer: KKLDAP
