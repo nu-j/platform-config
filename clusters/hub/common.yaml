@@ -40,7 +40,7 @@ operators:
   certManagerOperator:
     enabled: true
   openshiftTempoOperator:
-    enabled: true
+    enabled: false
   opentelemetryOperator:
     enabled: true
 
