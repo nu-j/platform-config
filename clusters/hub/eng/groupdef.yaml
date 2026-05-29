@@ -41,4 +41,4 @@ platform:
 
 # ACS cluster init bundle config — clusterName referenced by the ACS app
 stackrox:
-  clusterName: eng-hub
+  clusterName: hub-eng
