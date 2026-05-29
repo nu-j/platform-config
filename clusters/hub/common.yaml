@@ -36,7 +36,7 @@ platform:
 operators:
   # ACM is already installed on the hub — managed outside this chart
   advancedClusterManagementOperator:
-    enabled: false
+    enabled: true
   certManagerOperator:
     enabled: true
   openshiftTempoOperator:
