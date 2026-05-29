@@ -1,0 +1,39 @@
+#
+# clusterdef.yaml — mortgages preprod cluster
+#
+# One folder = one cluster. This file is the fourth and final merge layer:
+#   default.yaml → region.yaml → common.yaml → THIS FILE
+#
+# ACM label applied at import: platform/clusterGroup=mortgages  platform/clusterType=preprod
+#
+
+clusterGroup: mortgages
+team: mortgages
+
+adGroupName: OPENSHIFT_GROUPS_OCP-PREPROD
+ldapAccount: svc_ocp_ad_nonprd
+
+region: eu-west-1
+clusterName: mortgages-preprod-eu-west-1
+
+# ocpInstalledVersion: 4.20.0
+# ocpCurrentVersion: 4.20.0
+
+# ── ROSA MachinePool ──────────────────────────────────────────────────────────
+rosa:
+  machinePools:
+    platform:
+      enabled: false
+      name: platform
+      replicas: 2
+      clusterID: REPLACE_WITH_CLUSTER_INFRASTRUCTURE_ID
+      labels:
+        node-role: platform
+
+stackrox:
+  clusterName: mortgages-preprod
+
+# ── App-level overrides ───────────────────────────────────────────────────────
+# operators:
+#   strimziClusterOperator:
+#     enabled: false

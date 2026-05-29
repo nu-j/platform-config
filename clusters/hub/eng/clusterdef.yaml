@@ -1,0 +1,76 @@
+#
+# clusterdef.yaml — hub eng cluster (eu-west-1)
+#
+# One folder = one cluster. This file is the fourth and final merge layer:
+#   default.yaml → region.yaml → clusters/hub/common.yaml → THIS FILE
+#
+# ACM label applied at import:
+#   platform/clusterGroup=eng  platform/clusterType=hub  platform/region=eu-west-1
+#
+# NOTE: This is local-cluster in ACM — the hub manages itself. The hub-self-management
+#       ApplicationSet injects clusterType/clusterGroup/region via extraValues so these
+#       paths resolve correctly even though local-cluster has no generator .metadata labels.
+#
+
+clusterGroup: eng
+team: eng
+
+# AD / LDAP authentication for hub console access
+adGroupName: OPENSHIFT_GROUPS_OCP-HUB
+ldapAccount: svc_ocp_ad_hub
+
+# Region this cluster lives in. Must match a directory under platform-config/regions/
+region: eu-west-1
+
+# Unique cluster name — appears in Argo CD and ACM dashboards
+clusterName: hub-eng-eu-west-1
+
+# OCP version tracking (informational — upgrades managed via ROSA service / ACM)
+ocpInstalledVersion: 4.20.0
+ocpCurrentVersion: 4.20.0
+
+# ── Argo CD sync policy ───────────────────────────────────────────────────────
+# Hub syncs with prune + selfHeal enabled. Hub apps (ACS, alertmanager, operators)
+# are managed by GitOps — drift is corrected automatically.
+platform:
+  argocd:
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - Validate=true
+        - CreateNamespace=false
+        - RespectIgnoreDifferences=true
+        - ServerSideApply=true
+
+  # ── App overrides ─────────────────────────────────────────────────────────
+  argocdApps:
+    openshiftAuth:
+      targetRevision: main
+
+    ingresApiCerts:
+      path: replace-ingress-api-certs
+      targetRevision: main
+
+    grafana:
+      targetRevision: main
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - Validate=true
+          - CreateNamespace=true
+          - RespectIgnoreDifferences=true
+          - ServerSideApply=false
+
+# ── Advanced Cluster Security ─────────────────────────────────────────────────
+# clusterName is registered in the ACS Central init bundle generated on first sync.
+# Override below if this hub cluster needs a different ACS identifier.
+stackrox:
+  clusterName: hub-eng
+
+# ACS init bundle clusterName override example (uncomment if this cluster differs):
+# stackrox:
+#   clusterName: hub-eng-eu-west-1

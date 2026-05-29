@@ -1,17 +1,18 @@
 #
-# common.yaml — dev environment defaults
+# common.yaml — preprod environment defaults
 #
-# Applied to ALL clusters of clusterType=dev. This is the third layer in the merge chain:
-#   default.yaml → region.yaml → THIS FILE → clusters/dev/<group>/clusterdef.yaml
+# Applied to ALL clusters of clusterType=preprod. This is the third layer in the merge chain:
+#   default.yaml → region.yaml → THIS FILE → clusters/preprod/<group>/clusterdef.yaml
 #
 # Override any of these keys in clusterdef.yaml for cluster-specific behaviour.
 #
 
-clusterType: dev
+clusterType: preprod
 
 # ── Argo CD sync policy ───────────────────────────────────────────────────────
-# Controls how the root Application (and cascaded child Applications) sync.
-# dev: auto-sync with selfHeal and prune enabled — safe to remove unused resources.
+# preprod mirrors dev behaviour: auto-sync with prune enabled.
+# This keeps preprod clean and representative of what prod will receive.
+# If you want safer behaviour closer to prod, set prune: false here.
 platform:
   argocd:
     syncPolicy:
@@ -25,27 +26,19 @@ platform:
         - ServerSideApply=true
 
   # ── App feature flags ─────────────────────────────────────────────────────
-  # Enable / disable spoke-specific applications for all dev clusters.
-  # Individual clusters can override these in their clusterdef.yaml.
   argocdApps:
     rosaMachinePool:
-      enabled: true        # ROSA worker node pool management
+      enabled: true
     clusterOpsSa:
       enabled: true
     clusterTasks:
       enabled: true
     kubecostConfig:
-      enabled: true        # cost visibility
-    genericHelmchartPipeline:
-      enabled: false
-    grafanaCustomRoles:
-      enabled: false
-    tektonInfraContainersPipeline:
       enabled: true
+    tektonInfraContainersPipeline:
+      enabled: false    # CI pipelines typically not needed in preprod
 
 # ── Operators ────────────────────────────────────────────────────────────────
-# Operator subscriptions installed on all dev clusters.
-# Set enabled: false in clusterdef.yaml for any cluster that does not need them.
 operators:
   kubecostOperator:
     enabled: true
@@ -57,8 +50,8 @@ operators:
     enabled: true
 
 # ── Cluster banner ────────────────────────────────────────────────────────────
-# Green banner signals a non-production environment at a glance in the OCP console.
+# Orange banner distinguishes preprod from dev (green) and prod (red) in the OCP console.
 clusterTheme:
   banner:
     color: "#ffffff"
-    backgroundColor: "#28a745"
+    backgroundColor: "#fd7e14"

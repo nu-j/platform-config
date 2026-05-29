@@ -1,0 +1,47 @@
+#
+# clusterdef.yaml — payments preprod cluster
+#
+# One folder = one cluster. This file is the fourth and final merge layer:
+#   default.yaml → region.yaml → common.yaml → THIS FILE
+#
+# ACM label applied at import: platform/clusterGroup=payments  platform/clusterType=preprod
+#
+
+clusterGroup: payments
+team: payments
+
+adGroupName: OPENSHIFT_GROUPS_OCP-PREPROD
+ldapAccount: svc_ocp_ad_nonprd
+
+# Region this cluster lives in. Must match a directory under platform-config/regions/
+region: eu-west-1
+
+# Unique cluster name — used as the Argo CD cluster identifier
+clusterName: payments-preprod-eu-west-1
+
+# OCP version tracking (informational — upgrades managed via ROSA service / ACM)
+# ocpInstalledVersion: 4.20.0
+# ocpCurrentVersion: 4.20.0
+
+# ── ROSA MachinePool ──────────────────────────────────────────────────────────
+# Steps to activate:
+#  1. Set enabled: true
+#  2. Set clusterID from: oc get infrastructure cluster -o jsonpath='{.status.infrastructureName}'
+rosa:
+  machinePools:
+    platform:
+      enabled: false
+      name: platform
+      replicas: 2
+      clusterID: REPLACE_WITH_CLUSTER_INFRASTRUCTURE_ID
+      labels:
+        node-role: platform
+
+# ── Advanced Cluster Security ─────────────────────────────────────────────────
+stackrox:
+  clusterName: payments-preprod
+
+# ── App-level overrides ───────────────────────────────────────────────────────
+# operators:
+#   strimziClusterOperator:
+#     enabled: false

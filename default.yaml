@@ -51,6 +51,11 @@ platform:
     alertmanagerConfig:
       enabled: true
 
+    # Cluster console banner — shows environment type and group in the OCP console top bar.
+    # Colour is controlled by clusterTheme.banner.backgroundColor in each common.yaml.
+    clusterBannerConfig:
+      enabled: true
+
     rosaMachinePool:
       enabled: false
       destination:

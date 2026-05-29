@@ -1,0 +1,57 @@
+#
+# clusterdef.yaml — mortgages dev cluster
+#
+# One folder = one cluster. This file is the fourth and final merge layer:
+#   default.yaml → region.yaml → common.yaml → THIS FILE
+#
+# Folder name = clusterGroup value. The cluster name is derived from the group + environment.
+# ACM label applied at import: platform/clusterGroup=mortgages
+#
+
+# clusterGroup matches the directory name — used in Argo CD valueFiles path resolution
+clusterGroup: mortgages
+team: mortgages
+
+# AD / LDAP authentication
+adGroupName: OPENSHIFT_GROUPS_OCP-DEV
+ldapAccount: svc_ocp_ad_nonprd
+
+# Region this cluster lives in. Must match a directory under platform-config/regions/
+region: eu-west-1
+
+# Unique cluster name — used as the Argo CD cluster identifier
+clusterName: mortgages-dev-eu-west-1
+
+# OCP version tracking (informational — upgrades managed via ROSA service / ACM)
+# ocpInstalledVersion: 4.20.0
+# ocpCurrentVersion: 4.20.0
+
+# ── ROSA MachinePool ──────────────────────────────────────────────────────────
+# Day-2 worker node management. Enabled here means the rosaMachinePool Argo CD Application
+# will be created by platform-apps and will reconcile the MachinePool resource on this cluster.
+#
+# Steps to activate:
+#  1. Set enabled: true below
+#  2. Set clusterID to the output of:
+#       oc get infrastructure cluster -o jsonpath='{.status.infrastructureName}'
+#     on this spoke cluster
+rosa:
+  machinePools:
+    platform:
+      enabled: false   # set true once clusterID is populated
+      name: platform
+      replicas: 2
+      clusterID: REPLACE_WITH_CLUSTER_INFRASTRUCTURE_ID
+      labels:
+        node-role: platform
+
+# ── Advanced Cluster Security ─────────────────────────────────────────────────
+# clusterName registers this cluster in the ACS Central init bundle.
+stackrox:
+  clusterName: mortgages-dev
+
+# ── App-level overrides ───────────────────────────────────────────────────────
+# Override specific argocdApps entries from default.yaml / common.yaml here.
+# operators:
+#   strimziClusterOperator:
+#     enabled: false

@@ -1,0 +1,21 @@
+#
+# alertmanager.yaml — payments dev Alertmanager config overlay
+#
+# This file is appended to the alertmanager-config Application's valueFiles list:
+#   default.yaml → region.yaml → common.yaml → clusterdef.yaml
+#                                             → THIS FILE (alertmanager-specific overlay)
+#
+# Keys here override the alertmanager Helm chart values for this specific cluster.
+# Only include keys that differ from the chart defaults.
+#
+
+# Example: route all alerts to a payments-specific Slack channel
+# alertmanager:
+#   config:
+#     receivers:
+#       - name: payments-slack
+#         slack_configs:
+#           - channel: "#payments-alerts"
+#             send_resolved: true
+#     route:
+#       receiver: payments-slack

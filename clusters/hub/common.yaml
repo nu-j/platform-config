@@ -47,4 +47,4 @@ operators:
 clusterTheme:
   banner:
     color: "#ffffff"
-    backgroundColor: "#8b0000"
+    backgroundColor: "#6f42c1"  # purple — distinguishes hub from all spoke environments
