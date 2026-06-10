@@ -77,3 +77,10 @@ stackrox:
 # ACS init bundle clusterName override example (uncomment if this cluster differs):
 # stackrox:
 #   clusterName: hub-eng-eu-west-1
+
+# ── Cluster banner override ───────────────────────────────────────────────────
+# Overrides the default "HUB | eng" text set in hub/common.yaml.
+# colour (purple) is inherited from hub/common.yaml — only the text is changed here.
+clusterTheme:
+  banner:
+    text: "eng hub cluster"
