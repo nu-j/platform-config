@@ -52,6 +52,10 @@ platform:
     # tektonInfraContainersPipeline:
     #   enabled: true
 
+    # DevSpaces — enabled for all dev clusters; disable per-cluster in clusterdef.yaml.
+    devspacesConfig:
+      enabled: true
+
 # ── Operators ────────────────────────────────────────────────────────────────
 # Operator subscriptions installed on all dev clusters.
 # Set enabled: false in clusterdef.yaml for any cluster that does not need them.
@@ -63,6 +67,10 @@ operators:
   opentelemetryOperator:
     enabled: true
   strimziClusterOperator:
+    enabled: true
+  # DevSpaces operator — required for devspacesConfig to work.
+  # Installed via OLM; disable per-cluster in clusterdef.yaml if DevSpaces is not needed.
+  devspacesOperator:
     enabled: true
 
 # ── Cluster banner ────────────────────────────────────────────────────────────

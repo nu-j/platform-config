@@ -55,6 +55,15 @@ platform:
       destination:
         namespace: stakater-reloader
 
+    # Red Hat DevSpaces — browser-based VS Code workspaces for development teams.
+    # Spoke clusters only (guarded by clusterType != hub in the template).
+    # Enabled for all dev clusters in clusters/dev/common.yaml.
+    # Requires devspacesOperator to be installed first (handled by operator-installer).
+    devspacesConfig:
+      enabled: false
+      destination:
+        namespace: openshift-devspaces
+
   # Default config for the operator installer app
   operatorInstaller:
     repoURL: https://github.com/redhat-cop/helm-charts.git
@@ -148,3 +157,19 @@ operators:
     channel: stable
     csv: strimzi-cluster-operator.v0.0.0
     source: community-operators
+
+  # Red Hat DevSpaces operator — installed via OLM, enables the CheCluster CR API.
+  # Disabled globally; enabled for all dev clusters in clusters/dev/common.yaml.
+  devspacesOperator:
+    enabled: false
+    name: devspaces
+    appname: devspaces-operator
+    destination:
+      namespace: openshift-operators
+    createOperatorGroup: false
+    operatorGroupName: openshift-operators
+    createNamespace: false
+    targetOwnNamespace: false
+    channel: stable
+    csv: devspacesoperator.v3.19.0
+    source: redhat-operators

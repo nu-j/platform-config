@@ -74,6 +74,11 @@ operators:
     csv: amqstreams.v3.2.0-16
     source: redhat-operators
 
+  # DevSpaces operator is enabled for all dev clusters via dev/common.yaml.
+  # Uncomment below to disable it on this cluster only.
+  # devspacesOperator:
+  #   enabled: false
+
 # ── platform.argocdApps overrides ────────────────────────────────────────────
 # Override globally-enabled apps for this cluster by adding entries below.
 # IMPORTANT: always keep at least one real (uncommented) key beneath argocdApps:
@@ -85,3 +90,8 @@ platform:
     # This entry also serves as a reference for how to override any argocdApp.
     stakaterReloader:
       enabled: false
+
+    # DevSpaces is enabled for all dev clusters via dev/common.yaml.
+    # Uncomment below to disable it on this cluster only.
+    # devspacesConfig:
+    #   enabled: false
