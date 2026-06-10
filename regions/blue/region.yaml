@@ -1,6 +1,8 @@
 #
-# region.yaml: This is for config that is specific to a region
-#                This one is for Kilkenny region
+# region.yaml — blue region overrides
+#
+# "blue" is a non-AWS region identifier used for on-premises or non-standard environments.
+# Merged as the second layer: default.yaml → THIS FILE → clusters/<type>/common.yaml → clusterdef.yaml
 #
 
-ldapServer: KKLDAP
+ldapServer: BLUE_LDAP

@@ -9,31 +9,17 @@ platform:
   version: main
 
   # Global platform Argo CD config
+  # ── Reserved for a future argo-cd-config chart ────────────────────────────
+  # Keys like instanceName, rbac, controller tuning, redis, repo replicas are
+  # NOT currently read by any template. Do not enable them here until a
+  # platform-apps template or helm-catalog chart consumes them.
+  # ──────────────────────────────────────────────────────────────────────────
   argocd:
-    version: v1.20.3
-    consoleLink:
-      enabled: true
-    controller:
-      processors:
-        operation: 50
-        status: 25
-    instanceName: argocd
-    namespace: platform-tools
-    rbac:
-      defaultPolicy: role:readonly
-      policy: |
-        g, argocd-local-admins, role:admin
-    redis:
-      ha:
-        enabled: true
-    repo:
-      replicas: 3
-    # Global sync policy for all platform apps
-    # Autosync is commented out by default — enable per group/cluster in groupdef/clusterdef
+    # Global sync policy for all platform apps — read by platform-apps/_helpers.tpl.
+    # Overridden per environment in clusters/<type>/common.yaml (dev/preprod/prod/hub).
+    # Autosync is disabled here so new environments default to safe manual sync
+    # until a common.yaml explicitly enables it.
     syncPolicy:
-      #automated:
-      #  prune: true
-      #  selfHeal: true
       syncOptions:
         - Validate=true
         - CreateNamespace=false
@@ -60,6 +46,14 @@ platform:
       enabled: false
       destination:
         namespace: openshift-machine-api
+
+    # Stakater Reloader — watches ConfigMaps/Secrets and rolls Deployments on change.
+    # Spoke clusters only (guarded by clusterType != hub in the template).
+    # Enable per cluster in clusterdef.yaml. targetRevision overrides the chart version default.
+    stakaterReloader:
+      enabled: false
+      destination:
+        namespace: stakater-reloader
 
   # Default config for the operator installer app
   operatorInstaller:

@@ -1,6 +1,9 @@
 #
-# region.yaml: This is for config that is specific to a region
-#                This one is for Kilkenny region
+# region.yaml — eu-west-1 region overrides
+#
+# Merged as the second layer: default.yaml → THIS FILE → clusters/<type>/common.yaml → clusterdef.yaml
+# Add keys here that vary by AWS region (LDAP endpoints, DNS zones, proxy config, etc.)
 #
 
-ldapServer: KKLDAP
+# LDAP server for this region — override per cluster in clusterdef.yaml if needed
+ldapServer: EU_WEST_1_LDAP

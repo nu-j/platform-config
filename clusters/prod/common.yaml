@@ -1,24 +1,26 @@
 #
-# common.yaml — preprod environment defaults
+# common.yaml — prod environment defaults
 #
-# Applied to ALL clusters of clusterType=preprod. This is the third layer in the merge chain:
-#   default.yaml → region.yaml → THIS FILE → clusters/preprod/<group>/clusterdef.yaml
+# Applied to ALL clusters of clusterType=prod. This is the third layer in the merge chain:
+#   default.yaml → region.yaml → THIS FILE → clusters/prod/<group>/clusterdef.yaml
 #
 # Override any of these keys in clusterdef.yaml for cluster-specific behaviour.
 #
+# IMPORTANT: prod sync policy defaults are deliberately conservative.
+#   - prune: false  — resources are NEVER automatically deleted in prod.
+#                     Remove resources manually after verifying no traffic depends on them.
+#   - selfHeal: true — drift from git is corrected, but nothing is pruned without human action.
+#
 
-clusterType: preprod
+clusterType: prod
 
 # ── Argo CD sync policy ───────────────────────────────────────────────────────
-# preprod mirrors dev behaviour: auto-sync with prune enabled.
-# This keeps preprod clean and representative of what prod will receive.
-# If you want safer behaviour closer to prod, set prune: false here.
 platform:
   argocd:
     syncPolicy:
       automated:
-        prune: true      # resources removed from git are deleted from the cluster
-        selfHeal: true   # drift from git is corrected automatically
+        prune: false     # prod: never auto-prune — removals require deliberate manual action
+        selfHeal: true   # drift from git is still corrected automatically
       syncOptions:
         - Validate=true
         - CreateNamespace=false
@@ -26,20 +28,14 @@ platform:
         - ServerSideApply=true
 
   # ── App feature flags ─────────────────────────────────────────────────────
+  # Mirror dev/preprod defaults but err on the side of less in prod.
+  # Enable in clusterdef.yaml when confident a capability is prod-ready.
   argocdApps:
     rosaMachinePool:
-      enabled: true
-    # TODO: no template yet — uncomment when platform-apps template is added
-    # clusterOpsSa:
-    #   enabled: true
-    # clusterTasks:
-    #   enabled: true
-    # kubecostConfig:
-    #   enabled: true
-    # tektonInfraContainersPipeline:
-    #   enabled: false    # CI pipelines typically not needed in preprod
+      enabled: true        # ROSA worker node pool management
 
 # ── Operators ────────────────────────────────────────────────────────────────
+# Same operator set as preprod. Disable per cluster in clusterdef.yaml if not needed.
 operators:
   kubecostOperator:
     enabled: true
@@ -51,8 +47,8 @@ operators:
     enabled: true
 
 # ── Cluster banner ────────────────────────────────────────────────────────────
-# Orange banner distinguishes preprod from dev (green) and prod (red) in the OCP console.
+# Red banner — unmistakable signal that this is a live production cluster.
 clusterTheme:
   banner:
     color: "#ffffff"
-    backgroundColor: "#fd7e14"
+    backgroundColor: "#dc3545"  # red

@@ -27,16 +27,17 @@ platform:
     rosaMachinePool:
       enabled: false
 
-    clusterOpsSa:
-      enabled: true
-    clusterTasks:
-      enabled: true
+    # TODO: no template yet — uncomment when platform-apps template is added
+    # clusterOpsSa:
+    #   enabled: true
+    # clusterTasks:
+    #   enabled: true
 
 # Operators installed on hub clusters
 operators:
   # ACM is already installed on the hub — managed outside this chart
   advancedClusterManagementOperator:
-    enabled: true
+    enabled: false
   certManagerOperator:
     enabled: true
   openshiftTempoOperator:

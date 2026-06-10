@@ -30,18 +30,20 @@ platform:
   argocdApps:
     rosaMachinePool:
       enabled: true        # ROSA worker node pool management
-    clusterOpsSa:
-      enabled: true
-    clusterTasks:
-      enabled: true
-    kubecostConfig:
-      enabled: true        # cost visibility
+    # TODO: no template yet — uncomment when platform-apps template is added
+    # clusterOpsSa:
+    #   enabled: true
+    # clusterTasks:
+    #   enabled: true
+    # kubecostConfig:
+    #   enabled: true      # cost visibility (requires kubecostConfig template)
     genericHelmchartPipeline:
       enabled: false
     grafanaCustomRoles:
       enabled: false
-    tektonInfraContainersPipeline:
-      enabled: true
+    # TODO: no template yet — uncomment when platform-apps template is added
+    # tektonInfraContainersPipeline:
+    #   enabled: true
 
 # ── Operators ────────────────────────────────────────────────────────────────
 # Operator subscriptions installed on all dev clusters.
