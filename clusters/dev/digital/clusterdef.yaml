@@ -57,6 +57,23 @@ stackrox:
 #   strimziClusterOperator:
 #     enabled: false
 
+# Red Hat AMQ Streams (Streams for Apache Kafka) — required for digital team Kafka workloads.
+# Separate from the community strimziClusterOperator enabled in dev/common.yaml.
+operators:
+  amqStreamsOperator:
+    enabled: true
+    name: amq-streams
+    appname: amq-streams
+    destination:
+      namespace: openshift-operators
+    createOperatorGroup: false
+    operatorGroupName: openshift-operators
+    createNamespace: false
+    targetOwnNamespace: false
+    channel: stable
+    csv: amqstreams.v3.2.0-16
+    source: redhat-operators
+
 # ── platform.argocdApps overrides ────────────────────────────────────────────
 # Override globally-enabled apps for this cluster by adding entries below.
 # IMPORTANT: always keep at least one real (uncommented) key beneath argocdApps:

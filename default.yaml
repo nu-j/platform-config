@@ -90,7 +90,7 @@ operators:
     createNamespace: true
     targetOwnNamespace: true
     channel: stable-v1
-    csv: cert-manager-operator.v1.14.1
+    csv: cert-manager-operator.v1.19.0
     source: redhat-operators
 
   kubecostOperator:
