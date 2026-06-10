@@ -34,6 +34,19 @@ stackrox:
   clusterName: digital-preprod
 
 # ── App-level overrides ───────────────────────────────────────────────────────
+# Override operators for this cluster:
 # operators:
 #   strimziClusterOperator:
 #     enabled: false
+
+# ── platform.argocdApps overrides ────────────────────────────────────────────
+# Override globally-enabled apps for this cluster by adding entries below.
+# IMPORTANT: always keep at least one real (uncommented) key beneath argocdApps:
+# if this block exists — a bare argocdApps: with only comments parses as null
+# in YAML and silently wipes all inherited values from default.yaml/common.yaml.
+platform:
+  argocdApps:
+    # Stakater Reloader is disabled globally — enable it on this cluster if needed.
+    # This entry also serves as a reference for how to override any argocdApp.
+    stakaterReloader:
+      enabled: false

@@ -44,29 +44,25 @@ platform:
         - RespectIgnoreDifferences=true
         - ServerSideApply=true
 
-  # ── App overrides ─────────────────────────────────────────────────────────
+  # ── argocdApps overrides ──────────────────────────────────────────────────
+  # Override globally-enabled apps for this cluster by following this pattern.
+  # IMPORTANT: always keep at least one real (uncommented) key beneath argocdApps:
+  # if this block exists — a bare argocdApps: with only comments parses as null
+  # in YAML and silently wipes all inherited values from default.yaml/common.yaml.
   argocdApps:
-    # TODO: no template yet — uncomment when platform-apps template is added
+    # Stakater Reloader is a spoke capability — not needed on the hub.
+    # This entry also serves as a reference for how to suppress any globally-enabled app.
+    stakaterReloader:
+      enabled: false
+
+    # TODO: add these when templates exist in platform-apps
     # openshiftAuth:
     #   targetRevision: main
-
-    # TODO: no template yet — uncomment when platform-apps template is added
-    # ingressApiCerts:           # was: ingresApiCerts (typo fixed)
+    # ingressApiCerts:
     #   path: replace-ingress-api-certs
     #   targetRevision: main
-
-    # TODO: no template yet — uncomment when platform-apps template is added
     # grafana:
     #   targetRevision: main
-    #   syncPolicy:
-    #     automated:
-    #       prune: true
-    #       selfHeal: true
-    #     syncOptions:
-    #       - Validate=true
-    #       - CreateNamespace=true
-    #       - RespectIgnoreDifferences=true
-    #       - ServerSideApply=false
 
 # ── Advanced Cluster Security ─────────────────────────────────────────────────
 # clusterName is registered in the ACS Central init bundle generated on first sync.

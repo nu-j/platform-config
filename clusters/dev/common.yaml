@@ -24,6 +24,13 @@ platform:
         - RespectIgnoreDifferences=true
         - ServerSideApply=true
 
+  # ── Operator installer ────────────────────────────────────────────────────
+  # Dev: install plans are approved automatically — no manual gate needed.
+  # Override to Manual in clusterdef.yaml for any cluster requiring change control.
+  operatorInstaller:
+    installPlanApproval: Automatic
+    approveManualInstallPlanViaHook: false
+
   # ── App feature flags ─────────────────────────────────────────────────────
   # Enable / disable spoke-specific applications for all dev clusters.
   # Individual clusters can override these in their clusterdef.yaml.
