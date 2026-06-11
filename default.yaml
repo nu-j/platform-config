@@ -167,7 +167,7 @@ operators:
     source: redhat-operators
 
   kubecostOperator:
-    enabled: true
+    enabled: false
     name: kubecost-operator
     appname: kubecost-operator
     destination:
@@ -181,7 +181,7 @@ operators:
     source: certified-operators    # Red Hat certified catalogue — not community
 
   openshiftTempoOperator:
-    enabled: true
+    enabled: false
     name: tempo-product            # OLM package name (not tempo-operator)
     appname: tempo-operator
     destination:
@@ -201,7 +201,7 @@ operators:
           value: ""
 
   opentelemetryOperator:
-    enabled: true
+    enabled: false
     name: opentelemetry-product   # OLM package name (not opentelemetry-operator)
     appname: opentelemetry-operator
     destination:
