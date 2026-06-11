@@ -177,7 +177,7 @@ operators:
     createNamespace: true
     targetOwnNamespace: true
     channel: stable
-    csv: kubecost-operator.v0.0.0
+    csv: kubecost-operator.v3.2.0
     source: community-operators
 
   openshiftTempoOperator:
@@ -191,7 +191,7 @@ operators:
     createNamespace: true
     targetOwnNamespace: false
     channel: stable
-    csv: tempo-operator.v0.0.0
+    csv: tempo-operator.v0.20.0-3
     source: redhat-operators
 
   opentelemetryOperator:
@@ -207,20 +207,6 @@ operators:
     channel: stable
     csv: opentelemetry-operator.v0.0.0
     source: redhat-operators
-
-  strimziClusterOperator:
-    enabled: false
-    name: strimzi-kafka-operator
-    appname: strimzi-cluster-operator
-    destination:
-      namespace: openshift-operators
-    createOperatorGroup: false
-    operatorGroupName: openshift-operators
-    createNamespace: false
-    targetOwnNamespace: false
-    channel: stable
-    csv: strimzi-cluster-operator.v0.0.0
-    source: community-operators
 
   # Red Hat DevSpaces operator — installed via OLM, enables the CheCluster CR API.
   # Disabled globally; enabled for all dev clusters in clusters/dev/common.yaml.

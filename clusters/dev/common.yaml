@@ -66,8 +66,6 @@ operators:
     enabled: true
   opentelemetryOperator:
     enabled: true
-  strimziClusterOperator:
-    enabled: true
   # DevSpaces operator — required for devspacesConfig to work.
   # Installed via OLM; disable per-cluster in clusterdef.yaml if DevSpaces is not needed.
   devspacesOperator:

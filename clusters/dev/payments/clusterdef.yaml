@@ -51,12 +51,6 @@ rosa:
 stackrox:
   clusterName: payments-dev
 
-# ── App-level overrides ───────────────────────────────────────────────────────
-# Override operators for this cluster:
-# operators:
-#   strimziClusterOperator:
-#     enabled: false
-
 # ── platform.argocdApps overrides ────────────────────────────────────────────
 # Override globally-enabled apps for this cluster by adding entries below.
 # IMPORTANT: always keep at least one real (uncommented) key beneath argocdApps:

@@ -43,8 +43,6 @@ operators:
     enabled: true
   opentelemetryOperator:
     enabled: true
-  strimziClusterOperator:
-    enabled: true
 
 # ── Cluster banner ────────────────────────────────────────────────────────────
 # Red banner — unmistakable signal that this is a live production cluster.

@@ -47,8 +47,6 @@ operators:
     enabled: true
   opentelemetryOperator:
     enabled: true
-  strimziClusterOperator:
-    enabled: true
 
 # ── Cluster banner ────────────────────────────────────────────────────────────
 # Orange banner distinguishes preprod from dev (green) and prod (red) in the OCP console.
