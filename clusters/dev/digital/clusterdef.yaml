@@ -53,6 +53,13 @@ stackrox:
 
 # ── App-level overrides ───────────────────────────────────────────────────────
 # Red Hat AMQ Streams (Streams for Apache Kafka) — required for digital team Kafka workloads.
+# To enable Tempo on this cluster, override ROLEARN with the STS role ARN for S3 access:
+# operators:
+#   openshiftTempoOperator:
+#     config:
+#       env:
+#         - name: ROLEARN
+#           value: "arn:aws:iam::<ACCOUNT_ID>:role/<CLUSTER_NAME>-openshift-tempo-operator"
 operators:
   amqStreamsOperator:
     enabled: true

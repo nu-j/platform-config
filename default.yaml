@@ -167,7 +167,7 @@ operators:
     source: redhat-operators
 
   kubecostOperator:
-    enabled: false
+    enabled: true
     name: kubecost-operator
     appname: kubecost-operator
     destination:
@@ -178,11 +178,11 @@ operators:
     targetOwnNamespace: true
     channel: stable
     csv: kubecost-operator.v3.2.0
-    source: community-operators
+    source: certified-operators    # Red Hat certified catalogue — not community
 
   openshiftTempoOperator:
-    enabled: false
-    name: tempo-operator
+    enabled: true
+    name: tempo-product            # OLM package name (not tempo-operator)
     appname: tempo-operator
     destination:
       namespace: openshift-tempo-operator
@@ -193,10 +193,16 @@ operators:
     channel: stable
     csv: tempo-operator.v0.20.0-3
     source: redhat-operators
+    # ROLEARN is required on ROSA clusters for Tempo to write traces to S3 via STS.
+    # Set the cluster-specific ARN in clusterdef.yaml under operators.openshiftTempoOperator.config.
+    config:
+      env:
+        - name: ROLEARN
+          value: ""
 
   opentelemetryOperator:
-    enabled: false
-    name: opentelemetry-operator
+    enabled: true
+    name: opentelemetry-product   # OLM package name (not opentelemetry-operator)
     appname: opentelemetry-operator
     destination:
       namespace: openshift-opentelemetry-operator
@@ -205,7 +211,7 @@ operators:
     createNamespace: true
     targetOwnNamespace: false
     channel: stable
-    csv: opentelemetry-operator.v0.0.0
+    csv: opentelemetry-operator.v0.144.0-3
     source: redhat-operators
 
   # Red Hat DevSpaces operator — installed via OLM, enables the CheCluster CR API.
