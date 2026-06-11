@@ -56,3 +56,11 @@ clusterTheme:
   banner:
     color: "#ffffff"
     backgroundColor: "#fd7e14"
+
+# ── ArgoCD instance overrides ─────────────────────────────────────────────────
+# Uncomment to tune resource limits for preprod. adGroupName flows in automatically.
+# argocdInstance:
+#   resources:
+#     controller:
+#       limits: { cpu: "2", memory: 2Gi }
+#       requests: { cpu: 500m, memory: 1Gi }

@@ -37,6 +37,15 @@ platform:
       destination:
         namespace: openshift-gitops
 
+    # ArgoCD instance configuration — patches the operator-managed ArgoCD CR via SSA.
+    # Sets RBAC policy (platformGroup + adGroupName), component resource limits, and
+    # resourceExclusions. Also creates namespace admin RoleBindings in openshift-gitops.
+    # Enabled by default — every cluster should have its ArgoCD instance configured.
+    argocdInstanceConfig:
+      enabled: true
+      destination:
+        namespace: openshift-gitops
+
     advancedClusterSecurity:
       enabled: false
       destination:
@@ -79,6 +88,53 @@ platform:
     targetRevision: main
     approveManualInstallPlanViaHook: true
     installPlanApproval: Manual
+
+# ── ArgoCD instance configuration ────────────────────────────────────────────
+# Applied to the operator-managed ArgoCD CR via SSA by the argocd-instance chart.
+# Override resource limits per environment in clusters/<type>/common.yaml.
+# adGroupName flows in automatically from clusterdef.yaml (no need to set it here).
+argocdInstance:
+  rbac:
+    # Platform-wide Argo CD admin group — present on every cluster.
+    # Harden by removing the system:cluster-admins / cluster-admins lines later.
+    platformGroup: PLATFORM_ADMINS
+  resources:
+    # Mirrors operator defaults — change in common.yaml to tune per environment.
+    server:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 125m
+        memory: 128Mi
+    applicationSet:
+      limits:
+        cpu: "2"
+        memory: 1Gi
+      requests:
+        cpu: 250m
+        memory: 512Mi
+    repo:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    controller:
+      limits:
+        cpu: "2"
+        memory: 2Gi
+      requests:
+        cpu: 250m
+        memory: 1Gi
+    redis:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
 
 # Global operator catalog — enable/override per layer
 operators:

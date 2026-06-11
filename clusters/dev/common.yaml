@@ -79,3 +79,12 @@ clusterTheme:
   banner:
     color: "#ffffff"
     backgroundColor: "#28a745"
+
+# ── ArgoCD instance overrides ─────────────────────────────────────────────────
+# Dev clusters typically run at full resource limits — uncomment and lower if cost
+# is a concern. adGroupName flows in from clusterdef.yaml automatically.
+# argocdInstance:
+#   resources:
+#     server:
+#       limits: { cpu: 250m, memory: 128Mi }
+#       requests: { cpu: 125m, memory: 64Mi }

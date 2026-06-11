@@ -49,3 +49,15 @@ clusterTheme:
   banner:
     color: "#ffffff"
     backgroundColor: "#6f42c1"  # purple — distinguishes hub from all spoke environments
+
+# ── ArgoCD instance overrides ─────────────────────────────────────────────────
+# The hub runs more ApplicationSets and manages more clusters — consider bumping
+# applicationSet and controller limits. adGroupName flows in from clusterdef.yaml.
+# argocdInstance:
+#   resources:
+#     applicationSet:
+#       limits: { cpu: "4", memory: 2Gi }
+#       requests: { cpu: 500m, memory: 1Gi }
+#     controller:
+#       limits: { cpu: "4", memory: 4Gi }
+#       requests: { cpu: 500m, memory: 2Gi }
