@@ -61,11 +61,11 @@ platform:
 # Set enabled: false in clusterdef.yaml for any cluster that does not need them.
 operators:
   kubecostOperator:
-    enabled: true
+    enabled: false
   openshiftTempoOperator:
-    enabled: true
+    enabled: false
   opentelemetryOperator:
-    enabled: true
+    enabled: false
   # DevSpaces operator — required for devspacesConfig to work.
   # Installed via OLM; disable per-cluster in clusterdef.yaml if DevSpaces is not needed.
   devspacesOperator:

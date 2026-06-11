@@ -221,5 +221,5 @@ operators:
     createNamespace: false
     targetOwnNamespace: false
     channel: stable
-    csv: devspacesoperator.v3.19.0
+    csv: devspacesoperator.v3.28.2
     source: redhat-operators
