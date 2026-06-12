@@ -56,6 +56,11 @@ platform:
     devspacesConfig:
       enabled: true
 
+    # Cluster guardrails — project template with quota, limitRange, and network policies.
+    # dev: permissive network posture (denyOtherNamespaces: false by default in chart values).
+    clusterGuardrails:
+      enabled: true
+
 # ── Operators ────────────────────────────────────────────────────────────────
 # Operator subscriptions installed on all dev clusters.
 # Set enabled: false in clusterdef.yaml for any cluster that does not need them.

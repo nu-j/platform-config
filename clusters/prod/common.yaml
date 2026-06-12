@@ -34,6 +34,17 @@ platform:
     rosaMachinePool:
       enabled: true        # ROSA worker node pool management
 
+    # Cluster guardrails — enabled with strictest network isolation for prod.
+    clusterGuardrails:
+      enabled: true
+
+# ── Cluster guardrails network policy ──────────────────────────────────────────
+# prod: enforce namespace isolation — only ingress and monitoring are permitted
+# from outside the namespace.
+clusterGuardrails:
+  networkPolicy:
+    denyOtherNamespaces: true   # prod: enforce namespace isolation
+
 # ── Operators ────────────────────────────────────────────────────────────────
 # Same operator set as preprod. Disable per cluster in clusterdef.yaml if not needed.
 operators:

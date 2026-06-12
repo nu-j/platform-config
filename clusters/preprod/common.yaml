@@ -39,6 +39,18 @@ platform:
     # tektonInfraContainersPipeline:
     #   enabled: false    # CI pipelines typically not needed in preprod
 
+    # Cluster guardrails — enabled with stricter network isolation for preprod.
+    # denyOtherNamespaces: true means new projects cannot receive cross-namespace traffic
+    # except from openshift-ingress and openshift-monitoring.
+    clusterGuardrails:
+      enabled: true
+
+# ── Cluster guardrails network policy ──────────────────────────────────────────
+# Override the chart default (denyOtherNamespaces: false) to enforce isolation in preprod.
+clusterGuardrails:
+  networkPolicy:
+    denyOtherNamespaces: true   # preprod: enforce namespace isolation
+
 # ── Operators ────────────────────────────────────────────────────────────────
 operators:
   kubecostOperator:

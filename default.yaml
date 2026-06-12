@@ -81,6 +81,17 @@ platform:
       destination:
         namespace: openshift-devspaces
 
+    # Cluster guardrails — stamps ResourceQuota, LimitRange, and NetworkPolicies into
+    # every new namespace created via `oc new-project`. Spoke clusters only.
+    # Network isolation posture is controlled by clusterGuardrails.networkPolicy.denyOtherNamespaces:
+    #   false (default) — permissive; dev teams can test cross-namespace calls freely.
+    #   true            — deny-by-default; use in preprod/prod for tenant isolation.
+    # Enabled for dev clusters in clusters/dev/common.yaml.
+    clusterGuardrails:
+      enabled: false
+      destination:
+        namespace: openshift-config
+
   # Default config for the operator installer app
   operatorInstaller:
     repoURL: https://github.com/redhat-cop/helm-charts.git
