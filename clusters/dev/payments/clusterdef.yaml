@@ -62,3 +62,5 @@ platform:
     # This entry also serves as a reference for how to override any argocdApp.
     stakaterReloader:
       enabled: false
+    clusterBannerConfig:
+      enabled: false
