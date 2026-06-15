@@ -96,3 +96,29 @@ platform:
     # Uncomment below to disable it on this cluster only.
     # devspacesConfig:
     #   enabled: false
+
+# ── GitHub OAuth ──────────────────────────────────────────────────────────────
+# Configures GitHub as the identity provider for this cluster and syncs GitHub
+# org teams to OpenShift Groups.
+#
+# Prerequisites (run against this spoke cluster before enabling):
+#   oc create secret generic github-oauth-client-secret \
+#     --from-literal=clientSecret=<GITHUB_CLIENT_SECRET> -n openshift-config
+#
+#   oc create secret generic github-groupsync-token \
+#     --from-literal=token=<GITHUB_PAT_READ_ORG> -n group-sync-operator
+#
+# Get the clientID from: github.com/organizations/<org>/settings/applications
+# See helm-catalog/github-auth/README.md for full setup instructions.
+#
+# githubAuth:
+#   clientID: "Ov23ctXXXXXXXXXXXX"
+#   organizations:
+#     - your-github-org
+#   groupSync:
+#     organization: your-github-org
+#
+# platform:
+#   argocdApps:
+#     githubAuth:
+#       enabled: true

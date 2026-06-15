@@ -92,6 +92,15 @@ platform:
       destination:
         namespace: openshift-config
 
+    # GitHub OAuth + team sync — configures GitHub as an OCP identity provider and
+    # syncs GitHub org teams to OpenShift Groups via the group-sync-operator.
+    # Spoke clusters only. Requires two pre-created secrets — see helm-catalog/github-auth/README.md.
+    # clientID and organization must be set per cluster in clusterdef.yaml.
+    githubAuth:
+      enabled: false
+      destination:
+        namespace: openshift-config
+
   # Default config for the operator installer app
   operatorInstaller:
     repoURL: https://github.com/redhat-cop/helm-charts.git
@@ -240,3 +249,20 @@ operators:
     channel: stable
     csv: devspacesoperator.v3.28.2
     source: redhat-operators
+
+  # Group Sync Operator (redhat-cop) — syncs GitHub org teams to OpenShift Groups.
+  # Required when githubAuth.groupSync.enabled is true.
+  # Disabled globally; enable per cluster in clusterdef.yaml or common.yaml.
+  groupSyncOperator:
+    enabled: false
+    name: group-sync-operator
+    appname: group-sync-operator
+    destination:
+      namespace: group-sync-operator
+    createOperatorGroup: true
+    operatorGroupName: group-sync-operator
+    createNamespace: true
+    targetOwnNamespace: true
+    channel: alpha
+    csv: group-sync-operator.v0.0.0
+    source: community-operators
