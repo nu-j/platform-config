@@ -63,4 +63,4 @@ platform:
     stakaterReloader:
       enabled: false
     clusterBannerConfig:
-      enabled: true
+      enabled: false
