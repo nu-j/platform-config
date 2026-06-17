@@ -1,12 +1,15 @@
 #
-# common.yaml: Config common to all hub (management) clusters
+# common.yaml: Config common to all management clusters
+#
+# Applied to ALL clusters of clusterType=management. This is the third layer in the merge chain:
+#   default.yaml → region.yaml → THIS FILE → clusters/management/<group>/clusterdef.yaml
 #
 
-clusterType: hub
+clusterType: management
 
 platform:
   argocdApps:
-    # ACS is the primary security tooling on hub clusters
+    # ACS is the primary security tooling on management clusters
     advancedClusterSecurity:
       enabled: true
       values:
@@ -19,11 +22,11 @@ platform:
               requests:
                 cpu: 100m
 
-    # Alertmanager config applies to all clusters including hub
+    # Alertmanager config applies to all clusters including management
     alertmanagerConfig:
       enabled: true
 
-    # ROSA MachinePools do not apply to hub clusters
+    # ROSA MachinePools do not apply to management clusters
     rosaMachinePool:
       enabled: false
 
@@ -33,9 +36,9 @@ platform:
     # clusterTasks:
     #   enabled: true
 
-# Operators installed on hub clusters
+# Operators installed on management clusters
 operators:
-  # ACM is already installed on the hub — managed outside this chart
+  # ACM is already installed on the management cluster — managed outside this chart
   advancedClusterManagementOperator:
     enabled: false
   certManagerOperator:
@@ -48,11 +51,11 @@ operators:
 clusterTheme:
   banner:
     color: "#ffffff"
-    backgroundColor: "#6f42c1"  # purple — distinguishes hub from all spoke environments
+    backgroundColor: "#6f42c1"  # purple — distinguishes management from all spoke environments
 
 # ── ArgoCD instance overrides ─────────────────────────────────────────────────
-# The hub runs more ApplicationSets and manages more clusters — consider bumping
-# applicationSet and controller limits. adGroupName flows in from clusterdef.yaml.
+# The management cluster runs more ApplicationSets and manages more clusters — consider
+# bumping applicationSet and controller limits. adGroupName flows in from clusterdef.yaml.
 # argocdInstance:
 #   resources:
 #     applicationSet:

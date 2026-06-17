@@ -16,7 +16,7 @@ platform:
   # ──────────────────────────────────────────────────────────────────────────
   argocd:
     # Global sync policy for all platform apps — read by platform-apps/_helpers.tpl.
-    # Overridden per environment in clusters/<type>/common.yaml (dev/preprod/prod/hub).
+    # Overridden per environment in clusters/<type>/common.yaml (dev/preprod/prod/management).
     # Autosync is disabled here so new environments default to safe manual sync
     # until a common.yaml explicitly enables it.
     syncPolicy:
@@ -65,7 +65,7 @@ platform:
         namespace: openshift-machine-api
 
     # Stakater Reloader — watches ConfigMaps/Secrets and rolls Deployments on change.
-    # Spoke clusters only (guarded by clusterType != hub in the template).
+    # Spoke clusters only (guarded by clusterType != management in the template).
     # Enable per cluster in clusterdef.yaml. targetRevision overrides the chart version default.
     stakaterReloader:
       enabled: false
@@ -73,7 +73,7 @@ platform:
         namespace: stakater-reloader
 
     # Red Hat DevSpaces — browser-based VS Code workspaces for development teams.
-    # Spoke clusters only (guarded by clusterType != hub in the template).
+    # Spoke clusters only (guarded by clusterType != management in the template).
     # Enabled for all dev clusters in clusters/dev/common.yaml.
     # Requires devspacesOperator to be installed first (handled by operator-installer).
     devspacesConfig:
@@ -266,3 +266,11 @@ operators:
     channel: alpha
     csv: group-sync-operator.v0.0.0
     source: community-operators
+
+oc label managedcluster payments \
+  cluster.open-cluster-management.io/clusterset=mickey-mouse \
+  platform/clusterType=dev \
+  platform/clusterGroup=payments \
+  platform/region=eu-west-1 \
+  platform/version=main \
+  --overwrite

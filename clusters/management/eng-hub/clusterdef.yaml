@@ -1,21 +1,22 @@
 #
-# clusterdef.yaml — hub eng cluster (eu-west-1)
+# clusterdef.yaml — eng-hub management cluster (eu-west-1)
 #
 # One folder = one cluster. This file is the fourth and final merge layer:
-#   default.yaml → region.yaml → clusters/hub/common.yaml → THIS FILE
+#   default.yaml → region.yaml → clusters/management/common.yaml → THIS FILE
 #
 # ACM label applied at import:
-#   platform/clusterGroup=eng  platform/clusterType=hub  platform/region=eu-west-1
+#   platform/clusterGroup=eng-hub  platform/clusterType=management  platform/region=eu-west-1
 #
-# NOTE: This is local-cluster in ACM — the hub manages itself. The hub-self-management
-#       ApplicationSet injects clusterType/clusterGroup/region via extraValues so these
-#       paths resolve correctly even though local-cluster has no generator .metadata labels.
+# NOTE: This is local-cluster in ACM — the management cluster manages itself. The
+#       hub-self-management ApplicationSet injects clusterType/clusterGroup/region via
+#       extraValues so these paths resolve correctly even though local-cluster has no
+#       generator .metadata labels.
 #
 
-clusterGroup: eng
+clusterGroup: eng-hub
 team: eng
 
-# AD / LDAP authentication for hub console access
+# AD / LDAP authentication for management console access
 adGroupName: OPENSHIFT_GROUPS_OCP-HUB
 ldapAccount: svc_ocp_ad_hub
 
@@ -23,15 +24,15 @@ ldapAccount: svc_ocp_ad_hub
 region: eu-west-1
 
 # Unique cluster name — appears in Argo CD and ACM dashboards
-clusterName: hub-eng-eu-west-1
+clusterName: eng-hub-management-eu-west-1
 
 # OCP version tracking (informational — upgrades managed via ROSA service / ACM)
 ocpInstalledVersion: 4.20.0
 ocpCurrentVersion: 4.20.0
 
 # ── Argo CD sync policy ───────────────────────────────────────────────────────
-# Hub syncs with prune + selfHeal enabled. Hub apps (ACS, alertmanager, operators)
-# are managed by GitOps — drift is corrected automatically.
+# Management cluster syncs with prune + selfHeal enabled. Apps (ACS, alertmanager,
+# operators) are managed by GitOps — drift is corrected automatically.
 platform:
   argocd:
     syncPolicy:
@@ -50,7 +51,7 @@ platform:
   # if this block exists — a bare argocdApps: with only comments parses as null
   # in YAML and silently wipes all inherited values from default.yaml/common.yaml.
   argocdApps:
-    # Stakater Reloader is a spoke capability — not needed on the hub.
+    # Stakater Reloader is a spoke capability — not needed on the management cluster.
     # This entry also serves as a reference for how to suppress any globally-enabled app.
     stakaterReloader:
       enabled: false
@@ -66,17 +67,13 @@ platform:
 
 # ── Advanced Cluster Security ─────────────────────────────────────────────────
 # clusterName is registered in the ACS Central init bundle generated on first sync.
-# Override below if this hub cluster needs a different ACS identifier.
 stackrox:
-  clusterName: hub-eng
-
-# ACS init bundle clusterName override example (uncomment if this cluster differs):
-# stackrox:
-#   clusterName: hub-eng-eu-west-1
+  clusterName: eng-hub
 
 # ── Cluster banner override ───────────────────────────────────────────────────
-# Overrides the default "HUB | eng" text set in hub/common.yaml.
-# colour (purple) is inherited from hub/common.yaml — only the text is changed here.
-clusterTheme:
-  banner:
-    text: "eng hub cluster"
+# Colour (purple) is inherited from management/common.yaml.
+# The default formula "MANAGEMENT | eng-hub | eu-west-1" is sufficient for most cases.
+# Uncomment below to set a custom label for this cluster.
+# clusterTheme:
+#   banner:
+#     text: "eng-hub management cluster | eu-west-1"
