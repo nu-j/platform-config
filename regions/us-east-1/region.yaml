@@ -6,3 +6,4 @@
 #
 
 ldapServer: US_EAST_1_LDAP
+regionName: us-east-1

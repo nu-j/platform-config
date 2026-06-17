@@ -266,11 +266,3 @@ operators:
     channel: alpha
     csv: group-sync-operator.v0.0.0
     source: community-operators
-
-oc label managedcluster payments \
-  cluster.open-cluster-management.io/clusterset=mickey-mouse \
-  platform/clusterType=dev \
-  platform/clusterGroup=payments \
-  platform/region=eu-west-1 \
-  platform/version=main \
-  --overwrite

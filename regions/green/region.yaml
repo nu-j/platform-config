@@ -6,3 +6,5 @@
 #
 
 ldapServer: GREEN_LDAP
+
+regionName: green

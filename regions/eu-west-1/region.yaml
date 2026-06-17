@@ -7,3 +7,5 @@
 
 # LDAP server for this region — override per cluster in clusterdef.yaml if needed
 ldapServer: EU_WEST_1_LDAP
+
+regionName: eu-west-1
