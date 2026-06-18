@@ -68,9 +68,13 @@ clusterTheme:
     backgroundColor: "#fd7e14"
 
 # ── ArgoCD instance overrides ─────────────────────────────────────────────────
-# Uncomment to tune resource limits for preprod. adGroupName flows in automatically.
-# argocdInstance:
-#   resources:
-#     controller:
-#       limits: { cpu: "2", memory: 2Gi }
-#       requests: { cpu: 500m, memory: 1Gi }
+argocdInstance:
+  server:
+    # Web terminal disabled in preprod — keeps the security posture consistent with prod.
+    # Enable per cluster in clusterdef.yaml if needed for debugging during a release cycle.
+    execEnabled: false
+  # Uncomment to tune resource limits for preprod. adGroupName flows in automatically.
+  # resources:
+  #   controller:
+  #     limits: { cpu: "2", memory: 2Gi }
+  #     requests: { cpu: 500m, memory: 1Gi }

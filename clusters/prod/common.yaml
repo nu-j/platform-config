@@ -61,3 +61,10 @@ clusterTheme:
   banner:
     color: "#ffffff"
     backgroundColor: "#dc3545"  # red
+
+# ── ArgoCD instance overrides ─────────────────────────────────────────────────
+argocdInstance:
+  server:
+    # Web terminal disabled in prod — exec access to running pods requires a break-glass
+    # process, not a convenience UI feature on a live production cluster.
+    execEnabled: false
