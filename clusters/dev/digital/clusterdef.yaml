@@ -122,3 +122,24 @@ platform:
 #   argocdApps:
 #     githubAuth:
 #       enabled: true
+
+# ── Team self-service ArgoCD instances ───────────────────────────────────────
+# Each entry provisions a dedicated ArgoCD instance for the team on this cluster.
+# After provisioning, teams manage their own applications by committing to their
+# gitops repo — no further platform team action required.
+#
+# teams is a map — the key is the team name, which also drives the namespace
+# convention (<name>-gitops) and AppProject destination prefix (<name>-*).
+# Using a map means entries defined at common.yaml and clusterdef.yaml layers
+# are merged together rather than replaced.
+#
+# See helm-catalog/team-argocd/ for the chart that powers this.
+# See helm-catalog/bootstrap-project/ for the chart teams use to create namespaces
+# (with the managed-by label that grants the team ArgoCD deploy rights automatically).
+#
+# teams:
+#   my-team:
+#     gitopsRepoURL: https://github.com/YOUR_ORG/my-team-gitops.git
+#     targetRevision: main
+#     # namespacePrefix: my-team   # defaults to key name; team ArgoCD targets <name>-* namespaces
+#     # adGroupName: MY_TEAM_AD_GROUP   # optional — grants UI access via GitHub/LDAP group

@@ -266,3 +266,18 @@ operators:
     channel: alpha
     csv: group-sync-operator.v0.0.0
     source: community-operators
+
+# ── Team self-service ArgoCD instances ────────────────────────────────────────
+# Register teams here to provision a dedicated ArgoCD instance per team on a cluster.
+# Each entry deploys helm-catalog/team-argocd, creating a namespace (<name>-gitops),
+# ArgoCD CR, AppProject, and a root Application pointing at the team's gitops repo.
+# Teams are fully self-service after provisioning — they manage their own applications
+# by committing to their gitops repo, with no further platform team involvement.
+#
+# teams is a MAP (not a list) so Helm's deep merge works correctly across config layers.
+# A team added in common.yaml and another in clusterdef.yaml will both be present —
+# neither silently overwrites the other. Lists replace; maps merge.
+#
+# Register teams per cluster in clusters/<type>/<group>/clusterdef.yaml.
+# This global default is intentionally empty — teams are opt-in per cluster.
+teams: {}
