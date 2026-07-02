@@ -60,20 +60,21 @@ stackrox:
 #       env:
 #         - name: ROLEARN
 #           value: "arn:aws:iam::<ACCOUNT_ID>:role/<CLUSTER_NAME>-openshift-tempo-operator"
-operators:
-  amqStreamsOperator:
-    enabled: false
-    name: amq-streams
-    appname: amq-streams
-    destination:
-      namespace: openshift-operators
-    createOperatorGroup: false
-    operatorGroupName: openshift-operators
-    createNamespace: false
-    targetOwnNamespace: false
-    channel: stable
-    csv: amqstreams.v3.2.0-16
-    source: redhat-operators
+
+# operators:
+#   amqStreamsOperator:
+#     enabled: true
+#     name: amq-streams
+#     appname: amq-streams
+#     destination:
+#       namespace: openshift-operators
+#     createOperatorGroup: false
+#     operatorGroupName: openshift-operators
+#     createNamespace: false
+#     targetOwnNamespace: false
+#     channel: stable
+#     csv: amqstreams.v3.2.0-16
+#     source: redhat-operators
 
   # DevSpaces operator is enabled for all dev clusters via dev/common.yaml.
   # Uncomment below to disable it on this cluster only.
