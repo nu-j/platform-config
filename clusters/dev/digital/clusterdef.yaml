@@ -137,9 +137,9 @@ platform:
 # See helm-catalog/bootstrap-project/ for the chart teams use to create namespaces
 # (with the managed-by label that grants the team ArgoCD deploy rights automatically).
 #
-# teams:
-#   my-team:
-#     gitopsRepoURL: https://github.com/YOUR_ORG/my-team-gitops.git
-#     targetRevision: main
-#     # namespacePrefix: my-team   # defaults to key name; team ArgoCD targets <name>-* namespaces
-#     # adGroupName: MY_TEAM_AD_GROUP   # optional — grants UI access via GitHub/LDAP group
+teams:
+  my-team:
+    gitopsRepoURL: https://github.com/nu-j/my-team-gitops.git
+    targetRevision: main
+    # namespacePrefix: my-team   # defaults to key name; team ArgoCD targets <name>-* namespaces
+    # adGroupName: MY_TEAM_AD_GROUP   # optional — grants UI access via GitHub/LDAP group
