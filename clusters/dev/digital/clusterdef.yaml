@@ -62,7 +62,7 @@ stackrox:
 #           value: "arn:aws:iam::<ACCOUNT_ID>:role/<CLUSTER_NAME>-openshift-tempo-operator"
 operators:
   amqStreamsOperator:
-    enabled: true
+    enabled: false
     name: amq-streams
     appname: amq-streams
     destination:
