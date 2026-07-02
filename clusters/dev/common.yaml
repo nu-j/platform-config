@@ -75,7 +75,8 @@ operators:
   # Installed via OLM; disable per-cluster in clusterdef.yaml if DevSpaces is not needed.
   devspacesOperator:
     enabled: true
-
+  amqStreamsOperator:
+    enabled: false
 # ── Cluster banner ────────────────────────────────────────────────────────────
 # Green banner signals a non-production environment at a glance in the OCP console.
 clusterTheme:
