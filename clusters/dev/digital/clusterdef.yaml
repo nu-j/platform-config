@@ -150,4 +150,4 @@ clusterTheme:
   banner:
     color: "#ffffff"
     backgroundColor: "#28a745"
-    text: "👋 hello world 🦄"
+    # text: "👋 hello world 🦄"
