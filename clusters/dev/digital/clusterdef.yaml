@@ -144,3 +144,10 @@ teams:
     targetRevision: main
     # namespacePrefix: my-team   # defaults to key name; team ArgoCD targets <name>-* namespaces
     # adGroupName: MY_TEAM_AD_GROUP   # optional — grants UI access via GitHub/LDAP group
+
+
+clusterTheme:
+  banner:
+    color: "#ffffff"
+    backgroundColor: "#28a745"
+    text: "👋 hello world 🦄"
