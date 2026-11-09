@@ -24,7 +24,7 @@ platform:
 
     # Demo Gitea instance (API automation lab) — management only
     gitea:
-      enabled: false
+      enabled: true
 
     # Alertmanager config applies to all clusters including management
     alertmanagerConfig:
