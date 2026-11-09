@@ -51,6 +51,14 @@ platform:
       destination:
         namespace: stackrox
 
+    # Gitea — demo Git server on the management cluster only.
+    # Guarded by clusterType=management in platform-apps/templates/management/gitea-app.yaml.
+    # Enabled in clusters/management/common.yaml. Seeds demo orgs (mice, ducks) + users.
+    gitea:
+      enabled: false
+      destination:
+        namespace: gitea
+
     alertmanagerConfig:
       enabled: true
 

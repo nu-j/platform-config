@@ -22,6 +22,10 @@ platform:
               requests:
                 cpu: 100m
 
+    # Demo Gitea instance (API automation lab) — management only
+    gitea:
+      enabled: true
+
     # Alertmanager config applies to all clusters including management
     alertmanagerConfig:
       enabled: true
