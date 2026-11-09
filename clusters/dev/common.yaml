@@ -75,6 +75,9 @@ operators:
   # Installed via OLM; disable per-cluster in clusterdef.yaml if DevSpaces is not needed.
   devspacesOperator:
     enabled: true
+  # OpenShift Pipelines — Tekton for team CI and platform self-service patterns.
+  openshiftPipelinesOperator:
+    enabled: true
   amqStreamsOperator:
     enabled: false
 # ── Cluster banner ────────────────────────────────────────────────────────────

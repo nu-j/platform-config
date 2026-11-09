@@ -26,6 +26,10 @@ platform:
     gitea:
       enabled: true
 
+    # Platform self-service Tekton pipelines (team-onboarding, …)
+    tektonPipelines:
+      enabled: true
+
     # Alertmanager config applies to all clusters including management
     alertmanagerConfig:
       enabled: true
@@ -50,6 +54,9 @@ operators:
   openshiftTempoOperator:
     enabled: false
   opentelemetryOperator:
+    enabled: true
+  # OpenShift Pipelines — required for helm-catalog/tekton-pipelines (self-service)
+  openshiftPipelinesOperator:
     enabled: true
 
 clusterTheme:

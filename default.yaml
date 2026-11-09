@@ -59,6 +59,13 @@ platform:
       destination:
         namespace: gitea
 
+    # Platform Tekton pipelines (self-service NS) — management only.
+    # Requires OpenShift Pipelines operator. See helm-catalog/tekton-pipelines/README.md.
+    tektonPipelines:
+      enabled: false
+      destination:
+        namespace: self-service
+
     alertmanagerConfig:
       enabled: true
 
@@ -256,6 +263,23 @@ operators:
     targetOwnNamespace: false
     channel: stable
     csv: devspacesoperator.v3.28.2
+    source: redhat-operators
+
+  # Red Hat OpenShift Pipelines (Tekton) — Pipeline/Task CRDs cluster-wide.
+  # Disabled globally; enabled for management + all dev clusters in their common.yaml.
+  # Installs into openshift-operators (AllNamespaces). Pin csv when bumping channel.
+  openshiftPipelinesOperator:
+    enabled: false
+    name: openshift-pipelines-operator-rh
+    appname: openshift-pipelines-operator
+    destination:
+      namespace: openshift-operators
+    createOperatorGroup: false
+    operatorGroupName: openshift-operators
+    createNamespace: false
+    targetOwnNamespace: false
+    channel: latest
+    csv: openshift-pipelines-operator-rh.v1.20.0
     source: redhat-operators
 
   # Group Sync Operator (redhat-cop) — syncs GitHub org teams to OpenShift Groups.
