@@ -267,7 +267,11 @@ operators:
 
   # Red Hat OpenShift Pipelines (Tekton) — Pipeline/Task CRDs cluster-wide.
   # Disabled globally; enabled for management + all dev clusters in their common.yaml.
-  # Installs into openshift-operators (AllNamespaces). Pin csv when bumping channel.
+  # Installs into openshift-operators (AllNamespaces).
+  #
+  # installPlanApproval: Automatic — overrides the platform default (Manual) so the
+  # Subscription does not sit on an unapproved InstallPlan. startingCSV must exist
+  # in the chosen channel or OLM reports ConstraintsNotSatisfiable.
   openshiftPipelinesOperator:
     enabled: false
     name: openshift-pipelines-operator-rh
@@ -279,7 +283,8 @@ operators:
     createNamespace: false
     targetOwnNamespace: false
     channel: latest
-    csv: openshift-pipelines-operator-rh.v1.20.0
+    csv: openshift-pipelines-operator-rh.v1.21.1
+    installPlanApproval: Automatic
     source: redhat-operators
 
   # Group Sync Operator (redhat-cop) — syncs GitHub org teams to OpenShift Groups.
